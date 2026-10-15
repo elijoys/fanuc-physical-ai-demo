@@ -1,2 +1,2 @@
-# fanuc-physical-ai-demo
-Simulating FANUC CRX. ROS2, Docker, Python.
+# FANUC CRX ROS 2 Simulation Demo
+(work in progress)
