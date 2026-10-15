@@ -24,19 +24,42 @@ RUN [ -f /etc/ros/rosdep/sources.list.d/20-default.list ] || rosdep init
 # Non-root user with passwordless sudo
 RUN useradd -m -s /bin/bash -G sudo dev \
  && echo "dev ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/dev \
- && mkdir -p /home/dev/ws_fanuc /home/dev/scripts \
+ && mkdir -p /home/dev/ws_fanuc/src /home/dev/scripts \
  && chown -R dev:dev /home/dev
-
-# Auto-source ROS 2 and the FANUC workspace (once it has been built) in every shell
-RUN echo 'source /opt/ros/jazzy/setup.bash' >> /home/dev/.bashrc \
- && echo '[ -f ~/ws_fanuc/install/setup.bash ] && source ~/ws_fanuc/install/setup.bash' >> /home/dev/.bashrc
-
-COPY --chown=dev:dev start.sh /home/dev/start.sh
-RUN chmod +x /home/dev/start.sh
 
 USER dev
 WORKDIR /home/dev
-RUN rosdep update --rosdistro jazzy
+RUN rosdep update --rosdistro jazzy && git lfs install
+
+# ---- FANUC ROS 2 driver workspace (built into the image) ----
+# Defaults track the latest main branch. For a reproducible build, pass the exact
+# commit hashes you tested with, e.g. --build-arg FANUC_DRIVER_REF=<hash>
+ARG FANUC_DESC_REF=main
+ARG FANUC_DRIVER_REF=main
+
+RUN cd /home/dev/ws_fanuc/src \
+ && git clone https://github.com/FANUC-CORPORATION/fanuc_description.git \
+ && git -C fanuc_description checkout ${FANUC_DESC_REF} \
+ && git clone --branch main --single-branch https://github.com/FANUC-CORPORATION/fanuc_driver.git \
+ && git -C fanuc_driver checkout ${FANUC_DRIVER_REF} \
+ && git -C fanuc_driver submodule update --init --recursive
+
+RUN sudo apt-get update \
+ && cd /home/dev/ws_fanuc \
+ && rosdep install --rosdistro jazzy --ignore-src --from-paths src -y \
+ && sudo rm -rf /var/lib/apt/lists/*
+
+# If this step is killed (out of memory), add: --parallel-workers 2
+RUN . /opt/ros/jazzy/setup.sh \
+ && cd /home/dev/ws_fanuc \
+ && colcon build --symlink-install
+
+# Auto-source ROS 2 and the FANUC workspace in every shell
+RUN echo 'source /opt/ros/jazzy/setup.bash' >> /home/dev/.bashrc \
+ && echo 'source ~/ws_fanuc/install/setup.bash' >> /home/dev/.bashrc
+
+COPY --chown=dev:dev start.sh /home/dev/start.sh
+RUN chmod +x /home/dev/start.sh
 
 EXPOSE 6080
 CMD ["/home/dev/start.sh"]
