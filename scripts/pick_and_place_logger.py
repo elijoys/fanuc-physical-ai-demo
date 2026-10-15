@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """
 Drive the mock FANUC CRX-10iA through a pick-and-place style joint-space sequence
 using MoveIt's MoveGroup action, while logging /joint_states.
