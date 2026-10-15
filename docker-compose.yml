@@ -3,16 +3,12 @@ services:
     build: .
     image: fanuc-ros2-jazzy
     container_name: fanuc-ros2
-    # Only reachable from your own Mac
+    # Only reachable from your own machine
     ports:
       - "127.0.0.1:6080:6080"
     shm_size: "1gb"
     tty: true
     volumes:
-      - ws_fanuc:/home/dev/ws_fanuc      # FANUC workspace (fast, persistent)
-      - ./scripts:/home/dev/scripts      # your own code, editable from VS Code on the Mac
-    # If the FANUC build fails on missing arm64 libraries, uncomment this line:
+      - ./scripts:/home/dev/scripts      # your own code, editable from VS Code
+    # If the build fails on missing arm64 libraries (Apple Silicon), uncomment:
     # platform: linux/amd64
-
-volumes:
-  ws_fanuc:
