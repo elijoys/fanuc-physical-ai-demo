@@ -1,7 +1,7 @@
 # FANUC CRX ROS 2 Simulation Demo
-**Creator** @elijoys | https://www.linkedin.com/in/robert-joy/
+**Creator:** @elijoys | https://www.linkedin.com/in/robert-joy/
 
-**Resource Used**
+**Resource Used:**
 <https://fanuc-corporation.github.io/fanuc_driver_doc/main/index.html>
 
 A containerized, one-command simulation of a FANUC CRX collaborative robot using FANUC's official
