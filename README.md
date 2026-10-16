@@ -60,7 +60,7 @@ python3 pick_and_place_logger.py --vel-scale 0.3
 It writes `output/joint_log.csv` and `output/joint_trajectories.png` and prints how close each joint
 got to its velocity limit.
 
-![Joint trajectories](output/joint_trajectories.png)
+![Joint trajectories](/scripts/output/joint_trajectories.png)
 
 **How it works:** the script is a client of the already-running MoveIt. It does not contain its own
 MoveIt configuration. It sends joint-space goals to the `/move_action` action server (the same one
