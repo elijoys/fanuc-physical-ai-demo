@@ -1,5 +1,12 @@
 # FANUC CRX ROS 2 Simulation Demo
 
+**Resource Used**
+<https://fanuc-corporation.github.io/fanuc_driver_doc/main/index.html>
+
+**DISCLAIMER** This has exclusively been tested via simulation - not tested on hardware. 
+Practice extreme caution and validate correct movement before deploying on real hardware. 
+Once again, I have NOT tested this on hardware - use at your own risk. 
+
 A containerized, one-command simulation of a FANUC CRX collaborative robot using FANUC's official
 ROS 2 driver, plus a small Python client that runs a pick-and-place style sequence and logs and
 plots the joint trajectories.
@@ -23,8 +30,8 @@ git clone <this repo>
 cd fanuc-physical-ai-demo
 docker compose up --build
 ```
-The first build downloads and compiles a lot: expect roughly **<fill in measured time>** and
-**<fill in image size>** of disk. Then open <http://localhost:6080/vnc.html> and click **Connect**.
+The first build downloads and compiles a lot: expect 10-15min and 5+ GB of storage. Then open <http://localhost:6080/vnc.html> and click **Connect**.
+Ensure you add that "/vnc.html" to the end of the link if it isn't there.
 
 ### Option B: GitHub Codespaces
 Open a codespace on this repo (4 cores recommended). When it loads, run this in the terminal and
@@ -60,10 +67,12 @@ MoveIt configuration. It sends joint-space goals to the `/move_action` action se
 RViz's Plan & Execute uses), subscribes to `/joint_states` while moving, then plots position and
 velocity against time with markers at each waypoint.
 
-**Waypoints** are placeholder joint angles that I tuned by posing the robot in RViz and reading
-`/joint_states`, the same idea as teaching points on a pendant. <edit if you did something different>
+**Waypoints** are placeholder joint angles you can tune by posing the robot in RViz and reading
+`/joint_states`, the same idea as teaching points on a pendant. 
 
-**Observations from my run:** <fill in: did all waypoints succeed, peak speeds vs limits, anything surprising>
+**Observations from my run:** In the joint_trajectories.png plot, note the peaks and troughs of joint 
+reported velocity makes sense. As the robot moves towards an object, its velocity increases. Yet, as it 
+gets close and physically picks up ("pick" and "lift" output), velocity decreases. 
 
 ## Versions tested
 | Component | Version |
@@ -103,10 +112,13 @@ validate that on a real CRX before claiming it.
 6. **Docs vs. repo layout.** The example packages live under `fanuc_driver/fanuc_examples/`, not at the
    repo root as I first assumed. I confirmed names (`manipulator`, `J1`-`J6`, `/move_action`) from the
    running system instead of guessing.
-7. <add anything you hit while running the script or rebuilding>
+7. **Terminal ros2_control_node-1 warnings** These warnings will fill your terminal output if running 
+in a virtual desktop (VNC). I imagine these are due to resource bottlenecks like CPU overhead and 
+the X server bottleneck. 
 
 ## Limitations and next steps
 - Mock hardware only; no collision objects or gripper in the scene.
+- Virtual desktop means slow framerate and slow update loops. 
 - Joint-space waypoints only. Next: Cartesian targets, and comparing against FANUC's own
   `fanuc_pick_and_place_example`.
 - Next: try Stream Motion / real-time control concepts and Roboguide integration on a real or virtual controller.
