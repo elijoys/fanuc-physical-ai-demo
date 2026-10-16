@@ -1,5 +1,5 @@
 # FANUC CRX ROS 2 Simulation Demo
-@elijoys | https://www.linkedin.com/in/robert-joy/
+**Creator** @elijoys | https://www.linkedin.com/in/robert-joy/
 
 **Resource Used**
 <https://fanuc-corporation.github.io/fanuc_driver_doc/main/index.html>
