@@ -34,8 +34,8 @@ RUN rosdep update --rosdistro jazzy && git lfs install
 # ---- FANUC ROS 2 driver workspace (built into the image) ----
 # Defaults track the latest main branch. For a reproducible build, pass the exact
 # commit hashes you tested with, e.g. --build-arg FANUC_DRIVER_REF=<hash>
-ARG FANUC_DESC_REF=main
-ARG FANUC_DRIVER_REF=main
+ARG FANUC_DESC_REF=fb40c9803a826ba68c7c8e28ba904a25efa7fcd2
+ARG FANUC_DRIVER_REF=da5db3f611cdc9dffe687e056c4e79bea584bf5c
 
 RUN cd /home/dev/ws_fanuc/src \
  && git clone https://github.com/FANUC-CORPORATION/fanuc_description.git \
