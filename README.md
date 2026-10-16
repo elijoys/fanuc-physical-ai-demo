@@ -3,16 +3,16 @@
 **Resource Used**
 <https://fanuc-corporation.github.io/fanuc_driver_doc/main/index.html>
 
-**DISCLAIMER** This has exclusively been tested via simulation - not tested on hardware. 
-Practice extreme caution and validate correct movement before deploying on real hardware. 
-Once again, I have NOT tested this on hardware - use at your own risk. 
-
 A containerized, one-command simulation of a FANUC CRX collaborative robot using FANUC's official
 ROS 2 driver, plus a small Python client that runs a pick-and-place style sequence and logs and
 plots the joint trajectories.
 
 I built this to learn FANUC's ROS 2 stack hands-on. Everything here runs in **mock hardware**
 mode: no robot controller is required.
+
+**DISCLAIMER** This has exclusively been tested via simulation - not tested on hardware. 
+Practice extreme caution and validate correct movement before deploying on real hardware. 
+Once again, I have NOT tested this on hardware - use at your own risk. 
 
 ## What it does
 - Builds FANUC's open-source ROS 2 packages (`fanuc_description`, `fanuc_driver`) into a Docker image
