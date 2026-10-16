@@ -26,7 +26,9 @@ Once again, I have NOT tested this on hardware - use at your own risk.
 - Opening codespace time to download: ~10minutes
 - Not sure about option A (below) download time or docker image size. 
 
-## Quick start
+-------------------------------------------------------------------------------------------------
+
+# Setup and Run
 
 ### Option A: Docker (any machine):
 ```bash
@@ -86,6 +88,24 @@ velocity against time with markers at each waypoint.
 **Observations from my run:** In the joint_trajectories.png plot, note the peaks and troughs of joint 
 reported velocity makes sense. As the robot moves towards an object, its velocity increases. Yet, as it 
 gets close and physically picks up ("pick" and "lift" output), velocity decreases. 
+
+## Safely exiting all tabs + codespaces
+
+### GitHub Codespaces
+1. Save your work: `git status`, then commit and push anything listed.
+2. Stop the simulation with Ctrl+C in the launch terminal and close the RViz windows.
+3. Stop the desktop: run `vncserver -kill :1`, then press Ctrl+C in the terminal running `start.sh`.
+4. Close terminals (`exit`) and the browser desktop tab.
+5. Stop the codespace: Command Palette → "Codespaces: Stop Current Codespace" (or github.com/codespaces → Stop). Files are kept.
+6. Delete a codespace only after everything is pushed; deletion is permanent.
+
+### Local Docker
+```bash
+docker compose down        # stops and removes the container
+docker image prune -a      # optional: reclaim disk space from unused images
+```
+-------------------------------------------------------------------------------------------------
+# Summary + Troubleshooting
 
 ## Versions tested:
 | Component | Version |
