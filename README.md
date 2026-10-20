@@ -1,7 +1,7 @@
 # FANUC CRX ROS 2 Simulation Demo
 
 > [!WARNING]
-> **Disclaimer:** This project is an independent marketing mockup and portfolio piece. It is **not** affiliated with, endorsed by, sponsored by, or in any way officially connected to **FANUC Corporation** or any of its subsidiaries. All product names, logos, brands, and images are property of their respective owners.
+> **Disclaimer:** This project is an independent portfolio piece and marketing mockup. It is **not** affiliated with, endorsed by, sponsored by, or in any way officially connected to **FANUC Corporation** or any of its subsidiaries. All product names, logos, brands, and images are property of their respective owners.
 
 **Creator:** @elijoys | https://www.linkedin.com/in/robert-joy/
 
